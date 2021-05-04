@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rigs Info</title>
+</head>
+<body>
+<hr>
+<div id="aboutrig" class="infocell">
+{% for rig in rigs %}
+<p>As of {{ rig.entry_datetime }},</p>
+    <ul>
+<li><span class="info-text">Name: </span><span>{{ rig.name }}</span></li>
+<li><span class="info-text">Power: </span><span class="switchcolor">{{ rig.is_power_on }}</span></li>
+<li><span class="info-text">GPU Temperature: </span><span class="switchcolor">{{ rig.gpu_temp }}</span></li>
+<li><span class="info-text">Hashrate: </span><span>{{ rig.realtime_hashrate }} MH/s</span></li>
+<li><span class="info-text">Accepted Hashrate: </span><span>{{ rig.accepted_hashrate }} MH/s</span></li>
+<li><span class="info-text">Lifetime Earning: </span><span>{{ rig.lifetime_earning|floatformat:3 }} ETH</span></li>
+<li><span class="info-text">Acquisition Costs: </span><span>$ {{ rig.costs }}</span></li>
+    </ul>
+{% endfor %}
+</div>
+<hr>
+
+<!--move to another app. move to basedir template later. change to ?Gwei ex. 32*10**9wei is 32Gwei-->
+<div id="aboutsparkpool">
+<p>As of {{pool.entry_datetime}},</p>
+<span class="info-text">{{pool.gasprice_rapid}} Gwei</span><br>
+<span class="info-text">{{pool.gasprice_fast}} Gwei</span><br>
+<span class="info-text">{{pool.gasprice_standard}} Gwei</span><br>
+<span class="info-text">{{pool.gasprice_slow}} Gwei</span><br>
+</div>
+<hr>
+<!--end-->
+
+<div id="controlrig">
+    {% for rig in rigs %}
+    {% if rig.is_power_on %}<a href="#">Power off {{rig.name}}</a>{% else %}<a href="#">Power on {{rig.name}}</a>{% endif %}<br>
+    {% endfor %}
+</div>
+
+<!--others-->
+<div id="weather">
+    <p>Today's current temperature outside is {{weather}} &#8457;.</p>
+</div>
+<div id="converter">
+    <p>Today's current ETHUSD is $ {{ethusd}}.</p>
+</div>
+<!--end-->
+</body>
+</html>
