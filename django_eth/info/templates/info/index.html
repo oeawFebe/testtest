@@ -2,19 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <!-- zBootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>Rigs Info</title>
 </head>
 <body>
 <hr>
 <div id="aboutrig" class="infocell">
 {% for rig in rigs %}
-<p>As of {{ rig.entry_datetime }},</p>
+<p>As of {{ rig.entry_datetime }} UTC,</p>
     <ul>
 <li><span class="info-text">Name: </span><span>{{ rig.name }}</span></li>
 <li><span class="info-text">Power: </span><span class="switchcolor">{{ rig.is_power_on }}</span></li>
 <li><span class="info-text">GPU Temperature: </span><span class="switchcolor">{{ rig.gpu_temp }}</span></li>
-<li><span class="info-text">Hashrate: </span><span>{{ rig.realtime_hashrate }} MH/s</span></li>
-<li><span class="info-text">Accepted Hashrate: </span><span>{{ rig.accepted_hashrate }} MH/s</span></li>
+<li><span class="info-text">Hashrate: </span><span>{{ rig.realtime_hashrate|floatformat:3  }} MH/s</span></li>
+<li><span class="info-text">Accepted Share: </span><span>{{ rig.accepted_hashrate|floatformat:3  }}</span></li>
 <li><span class="info-text">Lifetime Earning: </span><span>{{ rig.lifetime_earning|floatformat:3 }} ETH</span></li>
 <li><span class="info-text">Acquisition Costs: </span><span>$ {{ rig.costs }}</span></li>
     </ul>
@@ -24,7 +29,7 @@
 
 <!--move to another app. move to basedir template later. change to ?Gwei ex. 32*10**9wei is 32Gwei-->
 <div id="aboutsparkpool">
-<p>As of {{pool.entry_datetime}},</p>
+<p>As of {{pool.entry_datetime}} UTC,</p>
 <span class="info-text">{{pool.gasprice_rapid}} Gwei</span><br>
 <span class="info-text">{{pool.gasprice_fast}} Gwei</span><br>
 <span class="info-text">{{pool.gasprice_standard}} Gwei</span><br>
@@ -38,13 +43,12 @@
     {% if rig.is_power_on %}<a href="#">Power off {{rig.name}}</a>{% else %}<a href="#">Power on {{rig.name}}</a>{% endif %}<br>
     {% endfor %}
 </div>
+<hr>
+<br>
 
 <!--others-->
-<div id="weather">
-    <p>Today's current temperature outside is {{weather}} &#8457;.</p>
-</div>
 <div id="converter">
-    <p>Today's current ETHUSD is $ {{ethusd}}.</p>
+    <p>Current ETHUSD is $ {{ ethusd|floatformat:3 }} (as of {{price_time}}).</p>
 </div>
 <!--end-->
 </body>

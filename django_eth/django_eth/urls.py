@@ -20,4 +20,5 @@ from info import views as info_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',info_views.index,name='index'),
+    path('get_data', info_views.get_data, name='get_data'),
 ]
