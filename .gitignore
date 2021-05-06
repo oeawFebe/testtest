@@ -1,2 +1,9 @@
 venv/
-*/db.sqlite3
+__pycache__/
+django_eth/db.sqlite3
+django_eth/.idea
+django_eth/ghostdriver.log
+django_eth/django_eth/__pycache__/
+django_eth/django_eth/eth/.basic_data.txt
+django_eth/django_eth/info/.basic_data.txt
+

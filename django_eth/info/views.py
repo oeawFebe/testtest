@@ -42,7 +42,7 @@ def get_data(request):
     driver=webdriver.PhantomJS(r'C://Users/Owner/Desktop/django_eth/django_eth/phantomjs.exe')
     driver.get(URI)
     time.sleep(1)
-    partial_html = driver.execute_script("return document.getElementsByTagName('pre')[0].innerHTML")
+    partial_html = driver.execute_scgript("return document.getElementsByTagName('pre')[0].innerHTML")
     data_in_dict = json.loads(partial_html)
     device_dicts=data_in_dict.get('miner').get('devices')
 
