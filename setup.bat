@@ -27,7 +27,7 @@ IF EXIST "venv" (
   py -3.9 -m venv venv
 )
 cd C:\Users\Owner\Desktop\django_eth\django_eth
-C:\Users\Owner\Desktop\django_eth\venv\Scripts\pip.exe install -r C:\Users\Owner\Desktop\django_eth\django_eth\requirements.txt
+C:\Users\Owner\Desktop\django_eth\venv\Scripts\pip.exe install -r C:\Users\Owner\Desktop\django_eth\requirements.txt
 C:\Users\Owner\Desktop\django_eth\venv\Scripts\python.exe manage.py migrate --noinput
 C:\Users\Owner\Desktop\django_eth\venv\Scripts\python.exe manage.py makemigrations
 C:\Users\Owner\Desktop\django_eth\venv\Scripts\python.exe manage.py migrate --noinput
