@@ -31,5 +31,5 @@ C:\Users\Owner\Desktop\django_eth\venv\Scripts\pip.exe install -r requirements.t
 C:\Users\Owner\Desktop\django_eth\venv\Scripts\python.exe manage.py migrate --noinput
 C:\Users\Owner\Desktop\django_eth\venv\Scripts\python.exe manage.py makemigrations
 C:\Users\Owner\Desktop\django_eth\venv\Scripts\python.exe manage.py migrate --noinput
-C:\Users\Owner\Desktop\django_eth\venv\Scripts\python.exe manage.py runserver
+C:\Users\Owner\Desktop\django_eth\venv\Scripts\python.exe manage.py runserver 0.0.0.0:8000
 PAUSE

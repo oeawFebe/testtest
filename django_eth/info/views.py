@@ -1,16 +1,17 @@
-from django.shortcuts import render,redirect
-from .models import Rig,Pool,ETHUSD
-from selenium import webdriver
-import time
-import websocket
-import ssl
-import json
 import cbpro
 import datetime
+import json
 import pytz
-#
-# def util_epoch_to_datetime(epochtime):
-#     return  datetime.datetime.fromtimestamp(epochtime)
+from selenium import webdriver
+import ssl
+import time
+import websocket
+from django.shortcuts import render,redirect
+from .models import Rig,Pool,ETHUSD
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import serializers
+
 
 def index(request):
 
@@ -42,7 +43,7 @@ def get_data(request):
     driver=webdriver.PhantomJS(r'C://Users/Owner/Desktop/django_eth/django_eth/phantomjs.exe')
     driver.get(URI)
     time.sleep(1)
-    partial_html = driver.execute_scgript("return document.getElementsByTagName('pre')[0].innerHTML")
+    partial_html = driver.execute_script("return document.getElementsByTagName('pre')[0].innerHTML")
     data_in_dict = json.loads(partial_html)
     device_dicts=data_in_dict.get('miner').get('devices')
 
@@ -74,3 +75,22 @@ def get_data(request):
     pool_data.save()
 
     return redirect(index)
+
+@api_view()
+def api(request):
+
+    rigs=[Rig.objects.latest('entry_datetime')]
+    # TODO some sorting for unique rigs
+
+    rig_serializer=RigSerializer(rigs,many=True)
+    return Response(rig_serializer.data)
+
+class RigSerializer(serializers.Serializer):
+    name=serializers.CharField()
+    entry_datetime=serializers.DateTimeField()
+    is_power_on=serializers.BooleanField()
+    gpu_temp=serializers.IntegerField()
+    realtime_hashrate=serializers.FloatField()
+    accepted_hashrate=serializers.FloatField()
+    lifetime_earning=serializers.FloatField()
+    costs=serializers.IntegerField()
