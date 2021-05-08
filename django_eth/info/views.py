@@ -12,6 +12,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import serializers
 
+from .quickstartwrite import quickwrite
 
 def index(request):
 
@@ -73,6 +74,9 @@ def get_data(request):
         gasprice_slow=int(data_in_dict_gas.get('slow')) / 10 ** 9,
     )
     pool_data.save()
+
+    # update googlespreadsheet https://docs.google.com/spreadsheets/d/1vMbmFBs33cPtFnybf5ZKyLrNS2yzCzfU5Flhs1oAFcg/edit#gid=0
+    quickwrite()
 
     return redirect(index)
 

@@ -5,6 +5,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
+import requests
+import json
+
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
@@ -13,12 +16,18 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1vMbmFBs33cPtFnybf5ZKyLrNS2yzCzfU5Flhs1oAFcg'
-SAMPLE_RANGE_NAME = 'A1:B2'
 
-def main():
+def quickwrite():
     """Shows basic usage of the Sheets API.
     Prints values from a sample spreadsheet.
     """
+    # [{"name":"godlike","entry_datetime":"2021-05-07T01:11:13.051055Z","is_power_on":true,"gpu_temp":65,"realtime_hashrate":149.1,"accepted_hashrate":1126.0,"lifetime_earning":0.0,"costs":6000}]
+    INPUT_JSON_RAW=requests.get('http://localhost:8000/api?format=json')
+    INPUT_JSON_STR=INPUT_JSON_RAW.content.decode('utf8')
+    INPUT_JSON_DICT=json.loads(INPUT_JSON_STR)[0]
+    SAMPLE_RANGE_NAME = 'A1:H2'
+    HEADERS=[k for k,_ in INPUT_JSON_DICT.items()]
+    INPUT_VALUES=[str(v) for _,v in INPUT_JSON_DICT.items()]
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -47,12 +56,10 @@ def main():
 
     if not values:
         print('No data found.')
-    else:
-        print('Name, Major:')
-        for row in values:
+    # else:
+    #     for row in values:
             # Print columns A and E, which correspond to indices 0 and 4.
             # print('%s, %s' % (row[0], row[4]))
-            pass
 
     response_date = service.spreadsheets().values().update(
         spreadsheetId=SAMPLE_SPREADSHEET_ID,
@@ -60,7 +67,7 @@ def main():
         range=SAMPLE_RANGE_NAME,
         body=dict(
             majorDimension='ROWS',
-            values=[['2','3'],['4','5'],])
+            values=[HEADERS,INPUT_VALUES])
     ).execute()
     print('Sheet successfully Updated')
 if __name__ == '__main__':
