@@ -1,6 +1,7 @@
 venv/
 __pycache__/
-django_eth/*.json
+django_eth/django_eth/info/*.json
+*/*.json
 django_eth/db.sqlite3
 django_eth/.idea
 django_eth/ghostdriver.log

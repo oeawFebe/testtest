@@ -18,14 +18,21 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SAMPLE_SPREADSHEET_ID = '1vMbmFBs33cPtFnybf5ZKyLrNS2yzCzfU5Flhs1oAFcg'
 
 def quickwrite():
-    """Shows basic usage of the Sheets API.
-    Prints values from a sample spreadsheet.
-    """
+
     # [{"name":"godlike","entry_datetime":"2021-05-07T01:11:13.051055Z","is_power_on":true,"gpu_temp":65,"realtime_hashrate":149.1,"accepted_hashrate":1126.0,"lifetime_earning":0.0,"costs":6000}]
     INPUT_JSON_RAW=requests.get('http://localhost:8000/api?format=json')
     INPUT_JSON_STR=INPUT_JSON_RAW.content.decode('utf8')
     INPUT_JSON_DICT=json.loads(INPUT_JSON_STR)[0]
-    SAMPLE_RANGE_NAME = 'A1:H2'
+
+    # trying to calculate the position in sheet
+    list_ = ['godlike','impact','one3090dell','z390','z490']
+    print(list_)
+    name = INPUT_JSON_DICT.get('name','no_name')
+    list_.append('no_name')
+    position=list_.index(name)
+    SAMPLE_RANGE_NAME = f'A{position*2+1}:H{position*2+2}'
+
+
     HEADERS=[k for k,_ in INPUT_JSON_DICT.items()]
     INPUT_VALUES=[str(v) for _,v in INPUT_JSON_DICT.items()]
     creds = None
@@ -71,4 +78,4 @@ def quickwrite():
     ).execute()
     print('Sheet successfully Updated')
 if __name__ == '__main__':
-    main()
+    quickwrite()
