@@ -3,6 +3,7 @@
 :: Only works if git is installed and python3.9 is installed in windows
 :: all string 'placeholder' should be replaced by django_eth
 :: check IPv4 address in advance by ipconfig | grep IPv4
+timeout /t 40
 cd C:\Users\Owner\Desktop
 IF EXIST "django_eth" (
   ECHO directory already exists

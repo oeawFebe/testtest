@@ -12,12 +12,15 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import serializers
 
-from .quickstartwrite import quickwrite
+from .quickstartwrite import quickwrite,quickread
 
 def index(request):
 
-    rigs=[Rig.objects.latest('entry_datetime')]
-    # TODO some sorting for unique rigs
+    # rigs=[Rig.objects.latest('entry_datetime')]
+    rigs=quickread()
+    # have to do something to convert list of list into django models (not the below ad-hoc approach)
+    rigs=[r for i,r in enumerate(rigs) if i%2]
+
 
     pool=Pool.objects.last()
 

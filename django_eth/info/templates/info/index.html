@@ -8,22 +8,51 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Rigs Info</title>
+    <style>
+        body {
+            font-family: Arial,
+            sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        .flexrow {
+            display: flex;
+            border: 2px black;
+        }
+
+        .flexrow > div {
+            flex: 1;
+        }
+
+        .infocell {
+            border: 2px solid green;
+            border-radius: 5px 25px;
+            background-color: white;
+            padding: 5px;
+            margin: 20px 5px 5px 5px;
+        }
+
+    </style>
 </head>
 <body>
 <hr>
-<div id="aboutrig" class="infocell">
+<div class="container">
+<div id="aboutrig" class="d-flex flex-row">
 {% for rig in rigs %}
-<p>As of {{ rig.entry_datetime }} UTC,</p>
-    <ul>
-<li><span class="info-text">Name: </span><span>{{ rig.name }}</span></li>
-<li><span class="info-text">Power: </span><span class="switchcolor">{{ rig.is_power_on }}</span></li>
-<li><span class="info-text">GPU Temperature: </span><span class="switchcolor">{{ rig.gpu_temp }}</span></li>
-<li><span class="info-text">Hashrate: </span><span>{{ rig.realtime_hashrate|floatformat:3  }} MH/s</span></li>
-<li><span class="info-text">Accepted Share: </span><span>{{ rig.accepted_hashrate|floatformat:3  }}</span></li>
-<li><span class="info-text">Lifetime Earning: </span><span>{{ rig.lifetime_earning|floatformat:3 }} ETH</span></li>
-<li><span class="info-text">Acquisition Costs: </span><span>$ {{ rig.costs }}</span></li>
-    </ul>
+    <div class="infocell">
+    <span class="info-text">As of {{ rig.1 }} UTC,</span><br>
+    <span class="info-text">Name: </span><span>{{ rig.0 }}</span><br>
+    <span class="info-text">Power: </span><span class="switchcolor">{{ rig.2 }}</span><br>
+    <span class="info-text">GPU Temperature: </span><span class="switchcolor">{{ rig.3 }}</span><br>
+    <span class="info-text">Hashrate: </span><span>{{ rig.4|floatformat:3  }} MH/s</span><br>
+    <span class="info-text">Accepted Share: </span><span>{{ rig.5|floatformat:3  }}</span><br>
+    <span class="info-text">Lifetime Earning: </span><span>{{ rig.6|floatformat:3 }} ETH</span><br>
+    <span class="info-text">Acquisition Costs: </span><span>$ {{ rig.7 }}</span><br>
+    </div>
+{% empty %} No Rigs Are Connected.
 {% endfor %}
+</div>
 </div>
 <hr>
 
@@ -38,11 +67,11 @@
 <hr>
 <!--end-->
 
-<div id="controlrig">
-    {% for rig in rigs %}
-    {% if rig.is_power_on %}<a href="#">Power off {{rig.name}}</a>{% else %}<a href="#">Power on {{rig.name}}</a>{% endif %}<br>
-    {% endfor %}
-</div>
+<!--<div id="controlrig">-->
+<!--    {% for rig in rigs %}-->
+<!--    {% if rig.is_power_on %}<a href="#">Power off {{rig.name}}</a>{% else %}<a href="#">Power on {{rig.name}}</a>{% endif %}<br>-->
+<!--    {% endfor %}-->
+<!--</div>-->
 <hr>
 <br>
 
