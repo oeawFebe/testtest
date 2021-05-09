@@ -1,4 +1,4 @@
-import cbpro
+# import cbpro #dependancy issue
 import datetime
 import json
 import pytz
@@ -21,14 +21,14 @@ def index(request):
 
     pool=Pool.objects.last()
 
-    # geth the eth USD PRICE
-    public_client=cbpro.PublicClient()
-    price_dict=public_client.get_product_order_book("ETH-USD")
-    print(price_dict)
-    try:
-        ethusd=(float(price_dict.get('bids')[0][0])+float(price_dict.get('asks')[0][0]))/2
-    except:
-        ethusd=0
+    # # geth the eth USD PRICE
+    # public_client=cbpro.PublicClient()
+    # price_dict=public_client.get_product_order_book("ETH-USD")
+    # print(price_dict)
+    # try:
+    #     ethusd=(float(price_dict.get('bids')[0][0])+float(price_dict.get('asks')[0][0]))/2
+    # except:
+    ethusd=0
 
 
     context={
