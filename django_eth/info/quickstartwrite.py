@@ -24,7 +24,7 @@ def quickwrite():
     INPUT_JSON_DICT=json.loads(INPUT_JSON_STR)[0]
 
     # trying to calculate the position in sheet
-    list_ = ['godlike','impact','one3090dell','z390','z490']
+    list_ = ['godlike','impact','one3090dell','z390','z490','z590']
     print(list_)
     name = INPUT_JSON_DICT.get('name','no_name')
     list_.append('no_name')
